@@ -1,8 +1,9 @@
+
+
 import os
 import socket
 import sys
 import time
-import re
 import random
 
 print("Welcome to the HAJ 1R Algorithm")
@@ -45,6 +46,7 @@ for data in file:
         # print("Your data is: " + data )
         # print (instance)
         list_of_instances.append(instance)  # this appends to the greater list of instances
+print "List", list_of_instances
 
     # print (str(list_of_instances[1]))
 
