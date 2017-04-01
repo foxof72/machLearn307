@@ -48,4 +48,15 @@ for data in file:
     if datasection is False:
         attributes.append(data)  # this will need to be added to their programs
 print("this is the list of instances")
-print(list_of_instances[1][0])
+
+def spliterNoninal(instanceList):
+    listOfSeenValues = []
+    for i in range(0, len(instanceList)):
+            value = instanceList[i][0]
+            print "value:", value
+
+
+
+
+
+spliterNoninal(list_of_instances)
