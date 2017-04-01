@@ -1,0 +1,40 @@
+@relation student-data
+
+@attribute school {GP,MS}
+@attribute sex {F,M}
+@attribute age numeric
+@attribute address {U,R}
+@attribute famsize {GT3,LE3}
+@attribute Pstatus {A,T}
+@attribute Medu numeric
+@attribute Fedu numeric
+@attribute Mjob {at_home,health,other,services,teacher}
+@attribute Fjob {teacher,other,services,health,at_home}
+@attribute reason {course,other,home,reputation}
+@attribute guardian {mother,father,other}
+@attribute traveltime numeric
+@attribute studytime numeric
+@attribute failures numeric
+@attribute schoolsup {yes,no}
+@attribute famsup {no,yes}
+@attribute paid {no,yes}
+@attribute activities {no,yes}
+@attribute nursery {yes,no}
+@attribute higher {yes,no}
+@attribute internet {no,yes}
+@attribute romantic {no,yes}
+@attribute famrel numeric
+@attribute freetime numeric
+@attribute goout numeric
+@attribute Dalc numeric
+@attribute Walc numeric
+@attribute health numeric
+@attribute absences numeric
+@attribute G1 numeric
+@attribute G2 numeric
+@attribute G3 numeric
+
+@data
+GP,F,18,U,GT3,A,4,4,at_home,teacher,course,mother,2,2,0,yes,no,no,no,yes,yes,no,no,4,3,4,1,1,3,6,5,6,6
+GP,F,17,U,GT3,T,1,1,at_home,other,course,father,1,2,0,no,yes,no,no,no,yes,yes,no,5,3,3,1,1,3,4,5,5,6
+GP,F,15,U,LE3,T,1,1,at_home,other,other,mother,1,2,3,yes,no,yes,no,yes,yes,yes,no,4,3,2,2,3,3,10,7,8,10

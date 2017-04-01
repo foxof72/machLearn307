@@ -3,11 +3,12 @@ import socket
 import sys
 import time
 import random
+from collections import defaultdict
 
 print("Welcome to the HAJ 1R Algorithm")
 print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
 
-file_name = "data.arff"
+file_name = "smallData.arff"
 print ("The File that you requested is " + file_name)
 
 
@@ -45,7 +46,7 @@ while True:
     data = file.readline()
     if not data:
         break
-    print ("this is before the if @data statement")
+    # print ("this is before the if @data statement")
     if '@data' in data:
         datasection = True
         data = file.readline()  # add this to code
@@ -87,10 +88,38 @@ for i in range(len(attributes) - 1):
 
 
 print(list_of_instances)
-# for i in range(len(list_of_instances)): #runs through the instances
-for k in range(len(list_of_instances[1])):  # runs through the attributes
-    for j in range(len(list_of_instances)):  # runs through the instances
-        print(list_of_instances[j][k])
+
+# this function checks to see if you've seen a value before or nah
+def seenIt(thingToCheck, valueList):
+    for i in (0, len(valueList)):
+        if valueList[i] == thingToCheck:
+            return True  # you've seen this value before
+    return False  # you have not seen this value before
+
+
+def nominalClassifer(listOfInstances):
+    listOfAttributes = []
+    # for i in range(len(list_of_instances)): #runs through the instances
+    for k in range(len(listOfInstances[1])):  # runs through the attributes
+        attributeValues = {}
+        for j in range(len(listOfInstances)):  # runs through the instances
+            # attributeValues = defaultdict(int)
+            currentValue = listOfInstances[j][k]
+            print "currentValue: " + currentValue
+            if currentValue in attributeValues:
+                print "already in "
+                attributeValues[currentValue] += 1
+            else:
+                print "not in"
+                attributeValues[currentValue] = 1
+        listOfAttributes.append(attributeValues)
+    return listOfAttributes
+
+# this code is for testing
+output = nominalClassifer(list_of_instances)
+print output
+# end testing
+
 
 
 
