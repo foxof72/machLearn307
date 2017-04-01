@@ -7,7 +7,7 @@ import random
 print("Welcome to the HAJ 1R Algorithm")
 print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
 
-file_name = input("File Name: ")
+file_name = "data.arff"
 print ("The File that you requested is " + file_name)
 
 
@@ -39,9 +39,12 @@ numericAttributes = []
 # whole_file = file.read()
 # if '@data' in whole_file:
 #	print ("Checking if @data is in the whole file")
-for data in file:
-
+# for data in file:
+while True:
     # print(data)
+    data = file.readline()
+    if not data:
+        break
     print ("this is before the if @data statement")
     if '@data' in data:
         datasection = True
@@ -87,8 +90,6 @@ print(list_of_instances)
 # for i in range(len(list_of_instances)): #runs through the instances
 for k in range(len(list_of_instances[1])):  # runs through the attributes
     for j in range(len(list_of_instances)):  # runs through the instances
-        print("you are here")
-
         print(list_of_instances[j][k])
 
 
