@@ -114,10 +114,3 @@ def nominalClassifer(listOfInstances):
 output = nominalClassifer(list_of_instances)
 print output
 # end testing
-
-
-
-
-
-
-
