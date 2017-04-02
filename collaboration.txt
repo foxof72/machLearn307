@@ -1,0 +1,9 @@
+John Williams, Hilary Shea, and Anthony Green
+Collaboration Log
+
+Stack Overflow; http://stackoverflow.com/questions/2626059/how-to-add-or-increment-a-dictionary-entry.  Accessed 2017 April 2.
+Stack Overflow; http://stackoverflow.com/questions/6181935/how-do-you-create-different-variable-names-while-in-a-loop-python.
+    Accessed 2017 April 2.
+Stack Overflow; http://stackoverflow.com/questions/826493/python-mixing-files-and-loops.  Accessed 2017 April 2.
+University of Pittsburgh; http://www.pitt.edu/~naraehan/python2/tutorial14.html.  Accesssed 2017 April 2.
+Python; https://docs.python.org/3/tutorial/datastructures.html#dictionaries.  Accessed 2017 April 2.
