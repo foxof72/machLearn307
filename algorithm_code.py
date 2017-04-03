@@ -38,6 +38,8 @@ file = open(file_name, "r")
 # nominalAttributes = []
 # numericAttributes = []
 attribute_type_list = []
+# fullAttributeList = []  # TODO: add this in or no?
+
 
 while True:
     # print(data)
@@ -269,12 +271,47 @@ outYes, outNo = getYN(list_of_instances)
 listYes, listNo, listTotals = classifer(list_of_instances)
 testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
 yes, no = findStats(testList, listYes, listNo, outYes, outNo)
-print "\n\n"
+print "\n\n "
 print "yes final: " + str(yes) + "%"
 print "no final: " + str(no) + "%"
 # print("This is the num list yes")
 # print (numListYes)
 
+# this is where you start editing
+def userFacing(allAttributeList, AllListTotals):
+    print("What attribute would you like to classify on?")
+    print("Select on your keyboard what attribute you would like to classify on: ")
+    for i in range(len(allAttributeList)):
+        print(str(i) + ": " + allAttributeList[i])
+    keyboardInput = input()
+    if int(keyboardInput) < len(allAttributeList) and int(keyboardInput) > 0:
+        classifyBy = allAttributeList[int(keyboardInput)]
+    else:
+        keyboardInput = input("Sorry, that was out of range")
+
+    print("You are classifying on " + classifyBy + ".")
+
+    print("Sweet! Now let's create an instance to classify:")
+    for j in range(len(allAttributeList)):
+        attrChoices = str(AllListTotals[j])
+        tempChoices = attrChoices.split("'")
+        # print(tempChoices)
+        choices = []
+        for i in range(len(tempChoices)):
+            if ((i % 2) != 0):
+                choices.append(tempChoices[i])
+                # print(tempChoices[i])
+        print("Please select what you would like to classify on for this attribute:")
+        for i in range(len(choices)):
+            print(str(i) + ": " + choices[i])
+
+        choice = input()
+        if int(choice) > len(choices) or int(choice) < 0:
+            print("We are sorry, but that was out of range.")
+            for i in range(len(choices)):
+                print(str(i) + ": " + choices[i])
+            choice = input()
+        print(choice)
 
 # print output
 # print output
