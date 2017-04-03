@@ -213,7 +213,6 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
     noFraction = float(numNo/noTotal)
     print "yesFraction: " + str(yesFraction)
     print "noFraction: " + str(noFraction)
-    print "\n\n"
     return yesFraction, noFraction
 # End of John's new function
 
@@ -223,6 +222,7 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
 def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     noFrac = []  # all the fractions to be multiple together for no
     yesFrac =[]  # all the fractions to be multiple for yes
+    print "\n\n"
     print "find stats yes total: " + str(yesTotal)
     print "find stats no total: " + str(noTotal)
     yesTotal = float(yesTotal)
@@ -231,10 +231,10 @@ def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     no = float(noTotal/(yesTotal+noTotal))
     print "total yes odds: " + str(yes)
     print "total no odds: " + str(no)
+    print "\n\n"
     for i in range(0, len(listOfKeys)):  # this for loop loads the lists with fractions for calculations
         yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
-        print "yesOdd: " + str(yesOdd)
-        print "noOdd: " + str(noOdd)
+        print "\n\n"
         yesFrac.append(yesOdd)
         noFrac.append(noOdd)
     yesFrac.append(yes)
@@ -255,7 +255,6 @@ def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     return yesNormal, noNormal
 # end of John's calculation function
 
-print "here"
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 # this code is for testing
 numListYes, numListNo, numTotals = classifer(
@@ -270,7 +269,7 @@ outYes, outNo = getYN(list_of_instances)
 listYes, listNo, listTotals = classifer(list_of_instances)
 testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
 yes, no = findStats(testList, listYes, listNo, outYes, outNo)
-print "hello"
+print "\n\n"
 print "yes final: " + str(yes) + "%"
 print "no final: " + str(no) + "%"
 # print("This is the num list yes")
