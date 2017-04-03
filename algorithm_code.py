@@ -297,3 +297,8 @@ def numeric_value(list_of_numerics, input_x):
             x = input_x[i]
             probs[instance] *= pdf(x, mean, stdev)
     return probs
+
+#Test code
+numerics = {[2, 2], [3, 3]}
+
+print "mean test " + avg(numerics)
