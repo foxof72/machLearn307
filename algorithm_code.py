@@ -189,7 +189,7 @@ def classifer(listOfInstances):
     # print (listOfAttributes)
     return yesCounter, noCounter, listOfYes, listOfNo, listOfAttributes  # added two return values; yesCounter noCounter
 
-# John wrote this function to generate the fractions used in the final mathematical equation
+# John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
 def fractionGenerator(key, yesList, noList, yesTotal, noTotal):
     for i in range(0, len(yesList)):
         if key == yesList[i].key:
@@ -206,7 +206,10 @@ def fractionGenerator(key, yesList, noList, yesTotal, noTotal):
     return yesFraction, noFraction
 # End of John's new function
 
-
+# John wrote this function to find what the odds are of each class.  It should be in a loop.
+def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
+    for i in range(0, len(listOfKeys)):
+        fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 # this code is for testing
 yesCount, noCount, numListYes, numListNo, numTotals = classifer(
