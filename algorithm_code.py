@@ -6,7 +6,7 @@ import math
 
 
 
-print("Welcome to the HAJ 1R Algorithm")
+print("Welcome to the HAJ NaiveBayes Algorithm")
 print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
 
 file_name = "smallData.arff"
@@ -334,16 +334,15 @@ def pdf(x, mean, stdev):
 
 def numeric_value(list_of_numerics, input_x):
     probs = {}
-    for attr in list_of_numerics:
-        probs[attr] = 1
+    for index, attr in list_of_numerics.iteritems():
+        print str(index)#test
+        print str(attr)#test
+        probs[index] = 1
         for i in range(len(list_of_numerics)):
             mean = avg(attr)
             stdev = sigma(attr, mean)
+            print mean #test
+            print stdev#test
             x = input_x[i]
-            probs[instance] *= pdf(x, mean, stdev)
+            probs[index] *= pdf(x, mean, stdev)
     return probs
-
-#Test code
-numerics = {[2, 2], [3, 3]}
-
-print "mean test " + avg(numerics)

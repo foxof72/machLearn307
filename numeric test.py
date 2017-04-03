@@ -16,8 +16,9 @@ def pdf(x, mean, stdev):
 
 def numeric_value(list_of_numerics, input_x):
     probs = {}
-    for index, attr in list_of_numerics.iteritems():
-        print str(index)
+    index= 0
+    for attr in list_of_numerics:
+        #print str(index)
         print str(attr)
         probs[index] = 1
         for i in range(len(list_of_numerics)):
@@ -26,11 +27,13 @@ def numeric_value(list_of_numerics, input_x):
             print mean
             print stdev
             x = input_x[i]
-            probs[index] *= pdf(x, mean, stdev)
+            probs[index] = pdf(x, mean, stdev)
+            print probs[index]
+        index += 1
     return probs
 
 #Test code
-summaries = {0:[19, 20, 21], 1:[29, 30, 31.0]}
+summaries = [[19, 20, 21], [29, 30, 31.0]]
 inputVector = [20, 30]
 probabilities = numeric_value(summaries, inputVector)
 print "Probabilites " + str(probabilities)
