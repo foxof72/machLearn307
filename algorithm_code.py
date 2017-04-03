@@ -205,9 +205,9 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
     noDic = noList[attribute[0]]
     print yesDic
     print noDic
-    numYes = yesDic[attribute[1]]
+    numYes = float(yesDic[attribute[1]])
     print "numYes: " + str(numYes)
-    numNo = noDic[attribute[1]]
+    numNo = float(noDic[attribute[1]])
     print "numNo: " + str(numNo)
     yesFraction = float(numYes/yesTotal)
     noFraction = float(numNo/noTotal)
@@ -223,8 +223,14 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
 def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     noFrac = []  # all the fractions to be multiple together for no
     yesFrac =[]  # all the fractions to be multiple for yes
-    yes = yesTotal/(yesTotal+noTotal)
-    no = noTotal/(yesTotal+noTotal)
+    print "find stats yes total: " + str(yesTotal)
+    print "find stats no total: " + str(noTotal)
+    yesTotal = float(yesTotal)
+    noTotal = float(noTotal)
+    yes = float(yesTotal/(yesTotal+noTotal))
+    no = float(noTotal/(yesTotal+noTotal))
+    print "total yes odds: " + str(yes)
+    print "total no odds: " + str(no)
     for i in range(0, len(listOfKeys)):  # this for loop loads the lists with fractions for calculations
         yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
         print "yesOdd: " + str(yesOdd)
@@ -244,8 +250,8 @@ def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     # now normalize
     print "noChance later: " + str(noChance)
     print "yesChance later: " + str(yesChance)
-    yesNormal = yesChance/(yesChance + noChance)
-    noNormal = noChance/(yesChance + noChance)
+    yesNormal = yesChance/(yesChance + noChance) * 100
+    noNormal = noChance/(yesChance + noChance) * 100
     return yesNormal, noNormal
 # end of John's calculation function
 
@@ -265,8 +271,8 @@ listYes, listNo, listTotals = classifer(list_of_instances)
 testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
 yes, no = findStats(testList, listYes, listNo, outYes, outNo)
 print "hello"
-print "yes:" + str(yes)
-print "no: " + str(no)
+print "yes final: " + str(yes) + "%"
+print "no final: " + str(no) + "%"
 # print("This is the num list yes")
 # print (numListYes)
 
