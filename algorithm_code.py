@@ -227,3 +227,29 @@ yesCount, noCount, listYes, listNo, listTotals = classifer(list_of_instances)
 # print output
 # print output
 # end testing
+
+#Anthony Green's changes
+def avg(attr):
+    summation = 0
+    for vals in attr:
+        summation = vals + summation
+    return summation/len(attr)
+
+def sigma(attr, mean):
+    variance = sum([pow(val - mean, 2) for val in attr]) / float(len(attr) - 1)
+    return math.sprt(variance)
+
+def pdf(x, mean, stdev):
+    exponent = math.exp(-(math.pow(x - mean, 2) / (2 * math.pow(stdev, 2))))
+    return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
+
+def numeric_value(list_of_numerics, input_x):
+    probs = {}
+    for attr in list_of_numerics:
+        probs[attr] = 1
+        for i in range(len(list_of_numerics)):
+            mean = avg(attr)
+            stdev = sigma(attr, mean)
+            x = input_x[i]
+            probs[instance] *= pdf(x, mean, stdev)
+    return probs
