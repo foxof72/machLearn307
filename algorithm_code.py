@@ -86,13 +86,12 @@ for i in range(len(
 # print("this is the list of the types and that attributes")
 # print(attribute_type_list)
 
-
-
 # print(list_of_instances)
 
 
-
 # this function checks to see if you've seen a value before or nah
+
+
 def getYN(listOfInstances):
     for i in range(0, len(listOfInstances)):
         yesNo = listOfInstances[i][30]  # warning: hard coded for 30 attributes
@@ -113,8 +112,8 @@ def sortNominalAndNumeric(attribute_type_list,
         temp_nominal = []
         for j in range(numAttr):  # this is the attributes
             if attribute_type_list[j] == "numeric":  # this is to create the numerical list
-                temp_numeric.append(listOfInstances[i][
-                                        j])  # this is taking the instance value and the attribute and appending it to the temp list
+                temp_numeric.append(float(listOfInstances[i][
+                                        j]))  # this is taking the instance value and the attribute and appending it to the temp list
             if attribute_type_list[j] == "nominal":  # this is to create the nominal list
                 temp_nominal.append(listOfInstances[i][
                                         j])  # this is taking the instance value and the attribute and appending it to the list
@@ -190,6 +189,8 @@ def classifer(listOfInstances):
     return yesCounter, noCounter, listOfYes, listOfNo, listOfAttributes  # added two return values; yesCounter noCounter
 
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
+
+
 def fractionGenerator(key, yesList, noList, yesTotal, noTotal):
     for i in range(0, len(yesList)):
         if key == yesList[i].key:
@@ -207,9 +208,31 @@ def fractionGenerator(key, yesList, noList, yesTotal, noTotal):
 # End of John's new function
 
 # John wrote this function to find what the odds are of each class.  It should be in a loop.
+
+
 def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
-    for i in range(0, len(listOfKeys)):
-        fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
+    noFrac = []  # all the fractions to be multiple together for no
+    yesFrac =[]  # all the fractions to be multiple for yes
+    yes = yesTotal/(yesTotal+noTotal)
+    no = noTotal/(yesTotal+noTotal)
+    for i in range(0, len(listOfKeys)): # this for loop loads the lists with fractions for calculations
+        yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
+        yesFrac.append(yesOdd)
+        noFrac.append(noOdd)
+    yesFrac.append(yes)
+    noFrac.append(no)
+    yesChance = 0
+    noChance = 0
+    for j in range(0, len(yesFrac)):  # does yes calculation
+        yesChance = yesChance * yesFrac[j]
+    for x in range(0, len(noFrac)):  # does no calculation
+        noChance = noChance * noFrac[x]
+    # now normalize
+    yesNormal = yesChance/(yesChance + noChance)
+    noNormal = noChance/(yesChance + noChance)
+    return yesNormal, noNormal
+
+
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 # this code is for testing
 yesCount, noCount, numListYes, numListNo, numTotals = classifer(
