@@ -9,7 +9,7 @@ import math
 print("Welcome to the HAJ 1R Algorithm")
 print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
 
-file_name = "small_set.arff"
+file_name = "smallData.arff"
 print ("The File that you requested is " + file_name)
 
 
@@ -60,8 +60,8 @@ while True:
     # print(list_of_instances)
     if datasection is False:
         attributes.append(data)  # this will need to be added to their programs
-        print(
-        "What attribute would you like to classify your instance on?")  # assumption that it must be a yes or no class, but this does not necessarly need to be the case
+         #print(
+       # "What attribute would you like to classify your instance on?")  # assumption that it must be a yes or no class, but this does not necessarly need to be the case
     # if we get things working then we can have it create a variable and take the values of that class and we can put that variable in our if statements
 
 
@@ -87,20 +87,25 @@ for i in range(len(
 # print("this is the list of the types and that attributes")
 # print(attribute_type_list)
 
-
-
 # print(list_of_instances)
 
 
-
 # this function checks to see if you've seen a value before or nah
+
+
 def getYN(listOfInstances):
     for i in range(0, len(listOfInstances)):
         yesNo = listOfInstances[i][30]  # warning: hard coded for 30 attributes
         # print "yes/no: " + yesNo
         yesCounter = 0
         noCounter = 0
-        return yesNo
+        if yesNo == "yes":
+            yesCounter += 1
+        else:
+            noCounter += 1
+        print "yes seperate function: "
+        print "no serperate function: "
+        return yesCounter, noCounter
 
 
 def sortNominalAndNumeric(attribute_type_list,
@@ -114,8 +119,8 @@ def sortNominalAndNumeric(attribute_type_list,
         temp_nominal = []
         for j in range(numAttr):  # this is the attributes
             if attribute_type_list[j] == "numeric":  # this is to create the numerical list
-                temp_numeric.append(listOfInstances[i][
-                                        j])  # this is taking the instance value and the attribute and appending it to the temp list
+                temp_numeric.append(float(listOfInstances[i][
+                                        j]))  # this is taking the instance value and the attribute and appending it to the temp list
             if attribute_type_list[j] == "nominal":  # this is to create the nominal list
                 temp_nominal.append(listOfInstances[i][
                                         j])  # this is taking the instance value and the attribute and appending it to the list
@@ -191,26 +196,61 @@ def classifer(listOfInstances):
     return yesCounter, noCounter, listOfYes, listOfNo, listOfAttributes  # added two return values; yesCounter noCounter
 
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
-def fractionGenerator(key, yesList, noList, yesTotal, noTotal):
-    for i in range(0, len(yesList)):
-        if key == yesList[i].key:
-            break
-    for j in range(0, len(noList)):
-        if key == noList[i].key:
-            break
-    yesDic = yesList[i]
-    noDic = noList[j]
-    numYes = yesDic[key]
-    numNo = noDic[key]
+
+
+def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
+    print "start generation: "
+    print "yesTotal: " + str(yesTotal)
+    print "noTotal: " + str(noTotal)
+    yesDic = yesList[attribute[0]]
+    noDic = noList[attribute[0]]
+    print yesDic
+    print noDic
+    numYes = yesDic[attribute[1]]
+    print "numYes: " + str(numYes)
+    numNo = noDic[attribute[1]]
+    print "numNo: " + str(numNo)
     yesFraction = numYes/yesTotal
     noFraction = numNo/noTotal
+    print "yesFraction: " + str(yesFraction)
+    print "noFraction: " + str(noFraction)
+    print "\n\n"
     return yesFraction, noFraction
 # End of John's new function
 
 # John wrote this function to find what the odds are of each class.  It should be in a loop.
+
+
 def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
-    for i in range(0, len(listOfKeys)):
-        fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
+    noFrac = []  # all the fractions to be multiple together for no
+    yesFrac =[]  # all the fractions to be multiple for yes
+    yes = yesTotal/(yesTotal+noTotal)
+    no = noTotal/(yesTotal+noTotal)
+    for i in range(0, len(listOfKeys)):  # this for loop loads the lists with fractions for calculations
+        yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
+        print "yesOdd: " + str(yesOdd)
+        print "noOdd: " + str(noOdd)
+        yesFrac.append(yesOdd)
+        noFrac.append(noOdd)
+    yesFrac.append(yes)
+    noFrac.append(no)
+    yesChance = yesFrac[0]
+    print "yesChance: " + str(yesChance)
+    noChance = noFrac[0]
+    print "noChance: " + str(noChance)
+    for j in range(1, len(yesFrac)):  # does yes calculation
+        yesChance = yesChance * yesFrac[j]
+    for x in range(1, len(noFrac)):  # does no calculation
+        noChance = noChance * noFrac[x]
+    # now normalize
+    print "noChance later: " + str(noChance)
+    print "yesChance later: " + str(yesChance)
+    yesNormal = yesChance/(yesChance + noChance)
+    noNormal = noChance/(yesChance + noChance)
+    return yesNormal, noNormal
+# end of John's calculation function
+
+print "here"
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 # this code is for testing
 yesCount, noCount, numListYes, numListNo, numTotals = classifer(
@@ -219,7 +259,11 @@ yesCount, noCount, nomListYes, nomListNo, nomTotals = classifer(nominalInstanceL
 
 # print(list_of_instances)
 yesCount, noCount, listYes, listNo, listTotals = classifer(list_of_instances)
-
+testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
+yes, no = findStats(testList, listYes, listNo, yesCount, noCount)
+print "hello"
+print "yes:" + str(yes)
+print "no: " + str(no)
 # print("This is the num list yes")
 # print (numListYes)
 
