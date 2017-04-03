@@ -94,18 +94,21 @@ for i in range(len(
 
 
 def getYN(listOfInstances):
+    # print listOfInstances
+    yesCounter = 0
+    noCounter = 0
     for i in range(0, len(listOfInstances)):
         yesNo = listOfInstances[i][30]  # warning: hard coded for 30 attributes
         # print "yes/no: " + yesNo
-        yesCounter = 0
-        noCounter = 0
-        if yesNo == "yes":
+        if yesNo == "yes\n":
+            # print "yes if"
             yesCounter += 1
-        else:
+        elif yesNo == "no\n":
+            # print "no if"
             noCounter += 1
-        print "yes seperate function: "
-        print "no serperate function: "
-        return yesCounter, noCounter
+    # print "yes seperate function: " + str(yesCounter)
+    # print "no serperate function: " + str(noCounter)
+    return yesCounter, noCounter
 
 
 def sortNominalAndNumeric(attribute_type_list,
@@ -144,8 +147,6 @@ def classifer(listOfInstances):
     listOfYes = []
     listOfNo = []
     numAttr = len(listOfInstances[1])  # this is a variable for the # of attributes
-    yesCounter = 0  # added counter
-    noCounter = 0  # added counter
     for k in range(numAttr):  # runs through the attributes
         attributeValues = {}
         attributeValuesYes = {}
@@ -171,7 +172,6 @@ def classifer(listOfInstances):
                 else:
                     attributeValuesYes[currentValue] = 1
                     attributeValues[currentValue] += 1
-                yesCounter += 1  # added counter
             elif "no" in listOfInstances[j][numAttr - 1]:  # == "no\n":
                 # print ("NO CASE")
                 if currentValue in attributeValuesNo:
@@ -183,7 +183,6 @@ def classifer(listOfInstances):
                 else:
                     attributeValuesNo[currentValue] = 1
                     attributeValues[currentValue] += 1
-                noCounter += 1  # added counter
         listOfAttributes.append(attributeValues)
         listOfYes.append(attributeValuesYes)
         listOfNo.append(attributeValuesNo)
@@ -193,7 +192,7 @@ def classifer(listOfInstances):
     # print (listOfNo)
     # print("this is the list of all the totals")
     # print (listOfAttributes)
-    return yesCounter, noCounter, listOfYes, listOfNo, listOfAttributes  # added two return values; yesCounter noCounter
+    return listOfYes, listOfNo, listOfAttributes  # added two return values; yesCounter noCounter
 
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
 
@@ -210,8 +209,8 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
     print "numYes: " + str(numYes)
     numNo = noDic[attribute[1]]
     print "numNo: " + str(numNo)
-    yesFraction = numYes/yesTotal
-    noFraction = numNo/noTotal
+    yesFraction = float(numYes/yesTotal)
+    noFraction = float(numNo/noTotal)
     print "yesFraction: " + str(yesFraction)
     print "noFraction: " + str(noFraction)
     print "\n\n"
@@ -239,9 +238,9 @@ def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     noChance = noFrac[0]
     print "noChance: " + str(noChance)
     for j in range(1, len(yesFrac)):  # does yes calculation
-        yesChance = yesChance * yesFrac[j]
+        yesChance = float(yesChance * yesFrac[j])
     for x in range(1, len(noFrac)):  # does no calculation
-        noChance = noChance * noFrac[x]
+        noChance = float(noChance * noFrac[x])
     # now normalize
     print "noChance later: " + str(noChance)
     print "yesChance later: " + str(yesChance)
@@ -253,14 +252,18 @@ def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
 print "here"
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 # this code is for testing
-yesCount, noCount, numListYes, numListNo, numTotals = classifer(
+numListYes, numListNo, numTotals = classifer(
     numericInstanceList)  # this is not working currently because yes\n and no\n are not in it
-yesCount, noCount, nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
+nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
 
+# print list_of_instances
+outYes, outNo = getYN(list_of_instances)
+# print "outYes: " + str(outYes)
+# print "outNo: " + str(outNo)
 # print(list_of_instances)
-yesCount, noCount, listYes, listNo, listTotals = classifer(list_of_instances)
+listYes, listNo, listTotals = classifer(list_of_instances)
 testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
-yes, no = findStats(testList, listYes, listNo, yesCount, noCount)
+yes, no = findStats(testList, listYes, listNo, outYes, outNo)
 print "hello"
 print "yes:" + str(yes)
 print "no: " + str(no)
