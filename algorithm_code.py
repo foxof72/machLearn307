@@ -1,4 +1,5 @@
 import os
+import math
 
 print("Welcome to the HAJ 1R Algorithm")
 print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
