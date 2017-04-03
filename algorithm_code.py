@@ -138,7 +138,8 @@ def classifer(listOfInstances):
     listOfYes = []
     listOfNo = []
     numAttr = len(listOfInstances[1])  # this is a variable for the # of attributes
-
+    yesCounter = 0  # added counter
+    noCounter = 0  # added counter
     for k in range(numAttr):  # runs through the attributes
         attributeValues = {}
         attributeValuesYes = {}
@@ -164,6 +165,7 @@ def classifer(listOfInstances):
                 else:
                     attributeValuesYes[currentValue] = 1
                     attributeValues[currentValue] += 1
+                yesCounter += 1  # added counter
             elif "no" in listOfInstances[j][numAttr - 1]:  # == "no\n":
                 # print ("NO CASE")
                 if currentValue in attributeValuesNo:
@@ -175,7 +177,7 @@ def classifer(listOfInstances):
                 else:
                     attributeValuesNo[currentValue] = 1
                     attributeValues[currentValue] += 1
-
+                noCounter += 1  # added counter
         listOfAttributes.append(attributeValues)
         listOfYes.append(attributeValuesYes)
         listOfNo.append(attributeValuesNo)
@@ -185,17 +187,34 @@ def classifer(listOfInstances):
     # print (listOfNo)
     # print("this is the list of all the totals")
     # print (listOfAttributes)
-    return listOfYes, listOfNo, listOfAttributes
+    return yesCounter, noCounter, listOfYes, listOfNo, listOfAttributes  # added two return values; yesCounter noCounter
+
+# John wrote this function to generate the fractions used in the final mathematical equation
+def fractionGenerator(key, yesList, noList, yesTotal, noTotal):
+    for i in range(0, len(yesList)):
+        if key == yesList[i].key:
+            break
+    for j in range(0, len(noList)):
+        if key == noList[i].key:
+            break
+    yesDic = yesList[i]
+    noDic = noList[j]
+    numYes = yesDic[key]
+    numNo = noDic[key]
+    yesFraction = numYes/yesTotal
+    noFraction = numNo/noTotal
+    return yesFraction, noFraction
+# End of John's new function
 
 
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 # this code is for testing
-numListYes, numListNo, numTotals = classifer(
+yesCount, noCount, numListYes, numListNo, numTotals = classifer(
     numericInstanceList)  # this is not working currently because yes\n and no\n are not in it
-nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
+yesCount, noCount, nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
 
 # print(list_of_instances)
-listYes, listNo, listTotals = classifer(list_of_instances)
+yesCount, noCount, listYes, listNo, listTotals = classifer(list_of_instances)
 
 # print("This is the num list yes")
 # print (numListYes)
