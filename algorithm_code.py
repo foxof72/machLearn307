@@ -52,7 +52,7 @@ while True:
         # print("Your data is: " + data )
         # print (instance)
         list_of_instances.append(instance)
-        print(list_of_instances)
+        # print(list_of_instances)
     # this appends to the greater list of instances
     # print("this is the list of instances")
     # print(list_of_instances)
@@ -85,32 +85,75 @@ for i in range(len(attributes) - 1):
 print(list_of_instances)
 
 # this function checks to see if you've seen a value before or nah
-def seenIt(thingToCheck, valueList):
-    for i in (0, len(valueList)):
-        if valueList[i] == thingToCheck:
-            return True  # you've seen this value before
-    return False  # you have not seen this value before
-
+def getYN(listOfInstances):
+    for i in range(0, len(listOfInstances)):
+        yesNo = listOfInstances[i][30]  # warning: hard coded for 30 attributes
+        # print "yes/no: " + yesNo
+        yesCounter = 0
+        noCounter = 0
+        return yesNo
 
 def nominalClassifer(listOfInstances):
     listOfAttributes = []
+    listOfYes = []
+    listOfNo = []
     # for i in range(len(list_of_instances)): #runs through the instances
+    # for i in range(0, len(listOfInstances)):
+    #     yesNo = listOfInstances[i][30]  # warning: hard coded for 30 attributes
+    #     # print "yes/no: " + yesNo
+    #     yesCounter = 0
+    #     noCounter = 0
+    #     if yesNo == "yes":
+    #         yesCounter += 1
+    #     else:
+    #         noCounter += 1
     for k in range(len(listOfInstances[1])):  # runs through the attributes
         attributeValues = {}
+        attributeValuesYes = {}
+        attributeValuesNo = {}
         for j in range(len(listOfInstances)):  # runs through the instances
+            # print "yes or no:" + getYN(listOfInstances)
             # attributeValues = defaultdict(int)
+            print(listOfInstances[j][k])
+            print("This is if the instance is yes or no")
+            print(listOfInstances[j][30])
             currentValue = listOfInstances[j][k]
-            print "currentValue: " + currentValue
-            if currentValue in attributeValues:
-                print "already in "
+            # print "currentValue: " + currentValue
+            if currentValue in attributeValuesYes or currentValue in attributeValuesNo:
+                # print "already in "
+                print "30: " + listOfInstances[j][30]
+                if listOfInstances[j][30] == "yes\n" and currentValue in attributeValuesYes:
+                    print "yes already"
+                    attributeValuesYes[currentValue] += 1
+                elif currentValue in attributeValuesNo and listOfInstances[j][30] == "no\n":
+                    print "no already"
+                    attributeValuesNo[currentValue] += 1
+                elif listOfInstances[j][30] == "no\n":
+                    # this is the case if the attribute is already in attributevalues
+                    attributeValuesNo[currentValue] = 1
                 attributeValues[currentValue] += 1
-            else:
-                print "not in"
+            elif currentValue not in attributeValuesYes or currentValue not in attributeValuesNo:
+                # print "not in"
+                if listOfInstances[j][30] == "yes\n" and currentValue not in listOfYes:
+                    print "yes new"
+                    attributeValuesYes[currentValue] = 1
+                    print "attrYes: " + str(attributeValuesYes)
+                elif listOfInstances[j][30] == "no\n":
+                    print "no new"
+                    attributeValuesNo[currentValue] = 1
                 attributeValues[currentValue] = 1
         listOfAttributes.append(attributeValues)
-    return listOfAttributes
+        listOfYes.append(attributeValuesYes)
+        listOfNo.append(attributeValuesNo)
+
+    print listOfYes
+    print listOfNo
+
+    # return listOfAttributes
 
 # this code is for testing
 output = nominalClassifer(list_of_instances)
+
+#print output
 print output
 # end testing
