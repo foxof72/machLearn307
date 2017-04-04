@@ -1,5 +1,6 @@
 @relation weather.symbolic
 
+@attribute temp numeric
 @attribute outlook {sunny, overcast, rainy}
 @attribute temperature {hot, mild, cool}
 @attribute humidity {high, normal}
@@ -7,31 +8,31 @@
 @attribute play {yes, no}
 
 @data
-sunny,hot,high,FALSE,no
-sunny,hot,high,TRUE,no
-overcast,hot,high,FALSE,yes
-rainy,mild,high,FALSE,yes
-rainy,cool,normal,FALSE,yes
-rainy,cool,normal,TRUE,no
-overcast,cool,normal,TRUE,yes
-sunny,mild,high,FALSE,no
-sunny,cool,normal,FALSE,yes
-rainy,mild,normal,FALSE,yes
-sunny,mild,normal,TRUE,yes
-overcast,mild,high,TRUE,yes
-overcast,hot,normal,FALSE,yes
-rainy,mild,high,TRUE,no
-sunny,hot,high,FALSE,no
-sunny,hot,high,TRUE,no
-overcast,hot,high,FALSE,yes
-rainy,mild,high,FALSE,yes
-rainy,cool,normal,FALSE,yes
-rainy,cool,normal,TRUE,no
-overcast,cool,normal,TRUE,yes
-sunny,mild,high,FALSE,no
-sunny,cool,normal,FALSE,yes
-rainy,mild,normal,FALSE,yes
-sunny,mild,normal,TRUE,yes
-overcast,mild,high,TRUE,yes
-overcast,hot,normal,FALSE,yes
-rainy,mild,high,TRUE,no
+12,sunny,hot,high,FALSE,no
+12,sunny,hot,high,TRUE,no
+34,overcast,hot,high,FALSE,yes
+65,rainy,mild,high,FALSE,yes
+34,rainy,cool,normal,FALSE,yes
+78, rainy,cool,normal,TRUE,no
+45,overcast,cool,normal,TRUE,yes
+12,sunny,mild,high,FALSE,no
+89,sunny,cool,normal,FALSE,yes
+67,rainy,mild,normal,FALSE,yes
+9,sunny,mild,normal,TRUE,yes
+210,overcast,mild,high,TRUE,yes
+56,overcast,hot,normal,FALSE,yes
+-17,rainy,mild,high,TRUE,no
+45,sunny,hot,high,FALSE,no
+12,sunny,hot,high,TRUE,no
+59,overcast,hot,high,FALSE,yes
+69,rainy,mild,high,FALSE,yes
+23,rainy,cool,normal,FALSE,yes
+65,rainy,cool,normal,TRUE,no
+09,overcast,cool,normal,TRUE,yes
+49,sunny,mild,high,FALSE,no
+48,sunny,cool,normal,FALSE,yes
+19,rainy,mild,normal,FALSE,yes
+39,sunny,mild,normal,TRUE,yes
+587,overcast,mild,high,TRUE,yes
+84,overcast,hot,normal,FALSE,yes
+59,rainy,mild,high,TRUE,no

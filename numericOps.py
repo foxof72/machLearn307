@@ -29,9 +29,9 @@ def sortNumeric(attribute_type_list, listOfInstances):  # the attribute_type_lis
         #   temp_nominal)  # this is taking the instance value and the attribute and appending it to the list
     # print("this is the numeric instance list")
 
-    # print(numericInstanceList)
+    print(numericInstanceList)
     # print("this is a nominal instance list")
-    # print(nominalInstanceList)
+    #print(nominalInstanceList)
 
     return numericInstanceList
 
@@ -64,10 +64,10 @@ def classiferNumeric(listOfInstances):
         listOfYes.append(attributeValuesYes)
 
         listOfNo.append(attributeValuesNo)
-    # print("this is list of yes")
-    # print(listOfYes)
-    # print("this is list of no")
-    # print(listOfNo)
+    print("this is list of yes")
+    print(listOfYes)
+    print("this is list of no")
+    print(listOfNo)
     return listOfYes, listOfNo
 
 
@@ -122,7 +122,7 @@ def sigma(mean, listYN):
 
 
 def pdf(x, mean, stdev):
-    print ("stdv: " + str(stdev))
+    # print ("stdv: " + str(stdev))
     exponent = math.exp(-(math.pow(x - mean, 2) / (2 * math.pow(stdev, 2))))
     return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
 

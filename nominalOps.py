@@ -40,23 +40,34 @@ def classifer(listOfInstances):
                     attributeValues[currentValue] += 1
                 # print(attributeValuesYes[currentValue])
                 elif currentValue not in attributeValues:
-                    attributeValuesYes[currentValue] = 1
-                    attributeValues[currentValue] = 1
+                    attributeValuesYes[currentValue] = 2
+                    attributeValues[currentValue] = 2
                 # print(attributeValuesYes[currentValue])
                 else:
-                    attributeValuesYes[currentValue] = 1
+                    attributeValuesYes[currentValue] = 2
                     attributeValues[currentValue] += 1
+                if currentValue not in attributeValuesNo:
+                    attributeValuesNo[currentValue] = 1
+                else:
+                    attributeValuesNo[currentValue] +=1
             elif "no" in listOfInstances[j][numAttr - 1]:  # == "no\n":
                 # print ("NO CASE")
                 if currentValue in attributeValuesNo:
                     attributeValuesNo[currentValue] += 1
                     attributeValues[currentValue] += 1
                 elif currentValue not in attributeValues:
-                    attributeValuesNo[currentValue] = 1
-                    attributeValues[currentValue] = 1
+                    attributeValuesNo[currentValue] = 2
+                    attributeValues[currentValue] = 2
                 else:
-                    attributeValuesNo[currentValue] = 1
+                    attributeValuesNo[currentValue] = 2
                     attributeValues[currentValue] += 1
+                if currentValue not in attributeValuesYes:
+                    attributeValuesYes[currentValue] = 1
+                else:
+                    attributeValuesYes[currentValue] += 1
+       #for k in range(numAttr):  # runs through the attributes
+           # for j in range(len(listOfInstances)):
+
         listOfAttributes.append(attributeValues)
         listOfYes.append(attributeValuesYes)
         listOfNo.append(attributeValuesNo)

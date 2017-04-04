@@ -4,6 +4,7 @@ import os
 
 from nominalOps import *
 from numericOps import *
+import statistics
 
 # Assumptions we assume that there will be either a space or at least still a comma division for a missing value
 # we are assuming that the last attribute is a yes no value, and that this is the class that we are classifying for but we can change this
@@ -135,16 +136,38 @@ def sortNominalAndNumeric(attribute_type_list,
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
 
 
-def fractionGenerator(attribute, randomX, yesList, noList, yesTotal, numericList, noTotal):
+def fractionGenerator(attribute, yesList, noList, yesTotal, numericList, noTotal):
     print ("start generation: ")
     print ("yesTotal: " + str(yesTotal))
     print ("noTotal: " + str(noTotal))
-    print yesList
+    # print yesList
     try:
-        float(attribute[1])
-        yesPDF, noPDF = numeric_value(numericList, randomX)
-        return yesPDF, noPDF
+        floatCast = float(attribute[1])
+        # yesPDF, noPDF = numeric_value(attribute[0], numericList, randomX)
+        # listOfNumericValues = sortNumeric(all_attribute_names, list_of_instances)
+        listOfNumericValuesYes, listOfNumericValuesNo = classiferNumeric(numericList)
+        print "try"
+        print listOfNumericValuesNo
+        print listOfNumericValuesYes
+        meanNo = statistics.mean(listOfNumericValuesNo[0])
+        meanYes = statistics.mean(listOfNumericValuesYes[0])
+        print meanNo
+        print meanYes
+        # print "yesMainList"
+        # print listOfNumericValuesYes
+        # print "noMainList"
+        # print listOfNumericValuesNo
+        stdVarNo = math.sqrt(statistics.variance(listOfNumericValuesNo[0], meanNo))
+        stdVarYes = math.sqrt(statistics.variance(listOfNumericValuesYes[0], meanYes))
+        print "no stdd: " + str(stdVarNo)
+        print "yes stdd: " + str(stdVarYes)
+        pdfYes = pdf(floatCast, meanYes, stdVarYes)
+        pdfNo = pdf(floatCast, meanNo, stdVarNo)
+        print "print yesPDF: " + str(pdfYes)
+        print "print noPDF: " + str(pdfNo)
+        return pdfYes, pdfNo
     except ValueError as e:
+        print "except"
         print "attribute: " + str(attribute[0])
         yesDic = yesList[attribute[0]]
         noDic = noList[attribute[0]]
@@ -182,7 +205,15 @@ def findStats(listOfKeys, yesList, noList, yesTotal, numericList, noTotal):
     print ("total no odds: " + str(no))
     print ("\n\n")
     for i in range(0, len(listOfKeys)-1):  # this for loop loads the lists with fractions for calculations
-        yesOdd, noOdd = fractionGenerator(listOfKeys[i], randomX, yesList, noList, yesTotal, numericList, noTotal)
+        print "start print"
+        print listOfKeys
+        print yesList
+        print noList
+        print yesTotal
+        print numericList
+        print noTotal
+        print "end print"
+        yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, numericList, noTotal)
         print ("\n\n")
         yesFrac.append(yesOdd)
         noFrac.append(noOdd)
@@ -250,7 +281,7 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
     return instanceToBeClassified
 
 # TODO: add call to findStats for training set first
-# testing
+# training
 startUp("weather.nominal.arff")
 createListOfAttributes(attributes)
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
@@ -269,21 +300,25 @@ all_attribute_names = []
 list_of_instances = []
 attributes = []
 
-# training
+# testing
 startUp("weather.nominal.arff")
 createListOfAttributes(attributes)
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
-# this code is for testing
 numListYes, numListNo, numTotals = classifer(
     numericInstanceList)  # this is not working currently because yes\n and no\n are not in it
 nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
 outYes, outNo = getYN(list_of_instances)
 listYes, listNo, listTotals = classifer(list_of_instances)
 allNumeric = sortNumeric(attribute_type_list, list_of_instances)
-numYes, numNO = classiferNumeric(allNumeric)
+# numYes, numNO = classiferNumeric(allNumeric)
 instanceForClassification = userFacing(all_attribute_names, listTotals, namesOfNominalClasses)
+print ("hilary")
+# theValue = classiferNumeric(allNumeric)
+print("hilary's value: ")
+# print theValue
+forAttributesSelected(instanceForClassification)
 print(instanceForClassification)
-yes, no = findStats(instanceForClassification, savedYesList, savedNoList, outYes, numericInstanceList, outNo)
+yes, no = findStats(instanceForClassification, savedYesList, savedNoList, outYes, allNumeric, outNo)
 
 
 #in our function call
