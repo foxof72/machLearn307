@@ -199,23 +199,28 @@ def classifer(listOfInstances):
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
 
 
-def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
+def fractionGenerator(attribute, randomVariableX, yesList, noList, yesTotal, noTotal):
     print "start generation: "
     print "yesTotal: " + str(yesTotal)
     print "noTotal: " + str(noTotal)
-    yesDic = yesList[attribute[0]]
-    noDic = noList[attribute[0]]
-    print yesDic
-    print noDic
-    numYes = float(yesDic[attribute[1]])
-    print "numYes: " + str(numYes)
-    numNo = float(noDic[attribute[1]])
-    print "numNo: " + str(numNo)
-    yesFraction = float(numYes/yesTotal)
-    noFraction = float(numNo/noTotal)
-    print "yesFraction: " + str(yesFraction)
-    print "noFraction: " + str(noFraction)
-    return yesFraction, noFraction
+    try:  # checks if a value is numeric
+        float(attribute[1])
+        yesPDF, noPDF = numeric_value(yesList, noList, randomVariableX)
+        return yesPDF, noPDF
+    except ValueError as e:
+        yesDic = yesList[attribute[0]]
+        noDic = noList[attribute[0]]
+        print yesDic
+        print noDic
+        numYes = float(yesDic[attribute[1]])
+        print "numYes: " + str(numYes)
+        numNo = float(noDic[attribute[1]])
+        print "numNo: " + str(numNo)
+        yesFraction = float(numYes/yesTotal)
+        noFraction = float(numNo/noTotal)
+        print "yesFraction: " + str(yesFraction)
+        print "noFraction: " + str(noFraction)
+        return yesFraction, noFraction
 # End of John's new function
 
 # John wrote this function to find what the odds are of each class.  It should be in a loop.
@@ -224,6 +229,7 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
 def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     noFrac = []  # all the fractions to be multiple together for no
     yesFrac =[]  # all the fractions to be multiple for yes
+    randomX = 0  # dummy for testing
     print "\n\n"
     print "find stats yes total: " + str(yesTotal)
     print "find stats no total: " + str(noTotal)
@@ -235,12 +241,13 @@ def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     print "total no odds: " + str(no)
     print "\n\n"
     for i in range(0, len(listOfKeys)):  # this for loop loads the lists with fractions for calculations
-        yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
+        yesOdd, noOdd = fractionGenerator(listOfKeys[i], randomX, yesList, noList, yesTotal, noTotal)
         print "\n\n"
         yesFrac.append(yesOdd)
         noFrac.append(noOdd)
     yesFrac.append(yes)
     noFrac.append(no)
+    # float(None)
     yesChance = yesFrac[0]
     print "yesChance: " + str(yesChance)
     noChance = noFrac[0]
@@ -332,17 +339,17 @@ def pdf(x, mean, stdev):
     return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
 
 def numeric_value(list_of_numerics, input_x):
-    probs = {}
+    probs = []
     index = 0
     for attr in list_of_numerics:
         print str(attr)
         probs[index] = 1
-        mean = avg(attr)
-        stdev = sigma(attr, mean)
+        mean = float(avg(attr))
+        stdev = float(sigma(attr, mean))
         print mean
         print stdev
         x = input_x[index]
-        probs[index] = pdf(x, mean, stdev)
+        probs[index] = float(pdf(x, mean, stdev))
         print probs[index]
         index += 1
     return probs
