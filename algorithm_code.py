@@ -317,7 +317,6 @@ def userFacing(allAttributeList, AllListTotals):
 # print output
 # end testing
 
-#Anthony Green's changes
 def avg(attr):
     summation = 0
     for vals in attr:
@@ -326,7 +325,7 @@ def avg(attr):
 
 def sigma(attr, mean):
     variance = sum([pow(val - mean, 2) for val in attr]) / float(len(attr) - 1)
-    return math.sprt(variance)
+    return math.sqrt(variance)
 
 def pdf(x, mean, stdev):
     exponent = math.exp(-(math.pow(x - mean, 2) / (2 * math.pow(stdev, 2))))
@@ -334,15 +333,16 @@ def pdf(x, mean, stdev):
 
 def numeric_value(list_of_numerics, input_x):
     probs = {}
-    for index, attr in list_of_numerics.iteritems():
-        print str(index)#test
-        print str(attr)#test
+    index = 0
+    for attr in list_of_numerics:
+        print str(attr)
         probs[index] = 1
-        for i in range(len(list_of_numerics)):
-            mean = avg(attr)
-            stdev = sigma(attr, mean)
-            print mean #test
-            print stdev#test
-            x = input_x[i]
-            probs[index] *= pdf(x, mean, stdev)
+        mean = avg(attr)
+        stdev = sigma(attr, mean)
+        print mean
+        print stdev
+        x = input_x[index]
+        probs[index] = pdf(x, mean, stdev)
+        print probs[index]
+        index += 1
     return probs
