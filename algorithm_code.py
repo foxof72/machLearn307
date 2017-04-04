@@ -332,17 +332,32 @@ def pdf(x, mean, stdev):
     return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
 
 def numeric_value(list_of_numerics, input_x):
-    probs = {}
+    probs_yes = []
+    probs_no = []
+    list_yes, list_no, list_tot = classifer(list_of_numerics)
     index = 0
-    for attr in list_of_numerics:
+    for attr in list_yes:
         print str(attr)
-        probs[index] = 1
-        mean = avg(attr)
-        stdev = sigma(attr, mean)
-        print mean
-        print stdev
+        probs_yes[index] = 1
+        mean_yes = avg(attr)
+        stdev_yes = sigma(attr, mean_yes)
+        print mean_yes
+        print stdev_yes
         x = input_x[index]
-        probs[index] = pdf(x, mean, stdev)
+        probs[index] = pdf(x, mean_yes, stdev_yes)
         print probs[index]
         index += 1
-    return probs
+
+    index = 0
+    for attr in list_no:
+        print str(attr)
+        probs_no[index] = 1
+        mean_no = avg(attr)
+        stdev_no = sigma(attr, mean_no)
+        print mean_no
+        print stdev_no
+        x = input_x[index]
+        probs[index] = pdf(x, mean_no, stdev_no)
+        print probs[index]
+        index += 1
+    return probs_yes, probs_no
