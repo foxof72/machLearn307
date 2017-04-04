@@ -1,9 +1,10 @@
 def getYN(listOfInstances):
     # print listOfInstances
+    numOfAttributes = len(listOfInstances[1])
     yesCounter = 0
     noCounter = 0
     for i in range(0, len(listOfInstances)):
-        yesNo = listOfInstances[i][30]  # warning: hard coded for 30 attributes
+        yesNo = listOfInstances[i][numOfAttributes - 1]  # warning: hard coded for 30 attributes
         # print "yes/no: " + yesNo
         if yesNo == "yes\n":
             # print "yes if"
