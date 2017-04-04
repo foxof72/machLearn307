@@ -216,7 +216,7 @@ numYes, numNO = classiferNumeric(allNumeric)
 
 # print(allNumeric)
 # average =avg2(numYes[2])
-# testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
+testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
 # yes, no = findStats(testList, listYes, listNo, outYes, numericInstanceList, outNo)
 # print ("\n\n ")
 # print ("yes final: " + str(yes) + "%")
@@ -233,24 +233,25 @@ numYes, numNO = classiferNumeric(allNumeric)
 def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
     instanceToBeClassified = []
     classNumber = ""
-    print()
-    print("What attribute would you like to classify on?")
-    print("Select on your keyboard what attribute you would like to classify on: ")
-    for i in range(len(namesOfNominalClasses)):
-        name = str(namesOfNominalClasses[i])
-        # if name in namesOfNominalClasses:
-        print(str(i) + ": " + str(namesOfNominalClasses[i]))
-    keyboardInput = input()
-    while (int(keyboardInput) > len(namesOfNominalClasses) or int(keyboardInput) < 0):
-        keyboardInput = input("Sorry, that was out of range. Please insert another number:")
-    classifyBy = namesOfNominalClasses[int(keyboardInput)]  # this is where you get what you classify by
-    print("You are classifying on " + classifyBy + ".")
-    for i in range(len(allAttributeList)):
-        if classifyBy == str(allAttributeList[i]):
-            classNumber = i
-            break
+    # print()
+    # print("What attribute would you like to classify on?")
+    # print("Select on your keyboard what attribute you would like to classify on: ")
+    # for i in range(len(namesOfNominalClasses)):
+    #     name = str(namesOfNominalClasses[i])
+    #     # if name in namesOfNominalClasses:
+    #     print(str(i) + ": " + str(namesOfNominalClasses[i]))
+    # keyboardInput = input()
+    # while (int(keyboardInput) > len(namesOfNominalClasses) or int(keyboardInput) < 0):
+    #     keyboardInput = input("Sorry, that was out of range. Please insert another number:")
+    # classifyBy = namesOfNominalClasses[int(keyboardInput)]  # this is where you get what you classify by
+    # print("You are classifying on enjoysClass.")
+    # for i in range(len(allAttributeList)):
+    #     if classifyBy == str(allAttributeList[i]):
+    #         classNumber = i
+    #         break
 
     print("Sweet! Now let's create an instance to classify:")
+    print ("Select a value for each attribute using the numbers next to the values")
     for j in range(len(allAttributeList)):
         attrChoices = str(AllListTotals[j])
         tempChoices = attrChoices.split("'")
@@ -290,7 +291,7 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
 
 
 instanceForClassification = userFacing(all_attribute_names, listTotals, namesOfNominalClasses)
-print(instanceForClassification)
+# print(instanceForClassification)
 yes, no = findStats(instanceForClassification, listYes, listNo, outYes, numericInstanceList, outNo)
 print ("\n\n ")
 print ("yes class odds: " + str(yes) + "%")
