@@ -1,5 +1,6 @@
 import os
-import math
+from nominalOps import *
+from numericOps import *
 
 # Assumptions we assume that there will be either a space or at least still a comma division for a missing value
 # we are assuming that the last attribute is a yes no value, and that this is the class that we are classifying for but we can change this 
@@ -101,24 +102,6 @@ def createListOfAttributes(attributes):
 # this function checks to see if you've seen a value before or nah
 
 
-def getYN(listOfInstances):
-    # print listOfInstances
-    yesCounter = 0
-    noCounter = 0
-    for i in range(0, len(listOfInstances)):
-        yesNo = listOfInstances[i][30]  # warning: hard coded for 30 attributes
-        # print "yes/no: " + yesNo
-        if yesNo == "yes\n":
-            # print "yes if"
-            yesCounter += 1
-        elif yesNo == "no\n":
-            # print "no if"
-            noCounter += 1
-    # print "yes seperate function: " + str(yesCounter)
-    # print "no serperate function: " + str(noCounter)
-    return yesCounter, noCounter
-
-
 def sortNominalAndNumeric(attribute_type_list,
                           listOfInstances):  # the attribute_type_list[[attributename, attribute_type
     # this function takes the sorting above and separates the values into numeric and nominal temp lists before pushing the whole instance into the greater list
@@ -151,54 +134,6 @@ def sortNominalAndNumeric(attribute_type_list,
     # print(nominalInstanceList)
 
     return numericInstanceList, nominalInstanceList
-
-
-def classifer(listOfInstances):
-    listOfAttributes = []
-    listOfYes = []
-    listOfNo = []
-    numAttr = len(listOfInstances[1])  # this is a variable for the # of attributes
-    for k in range(numAttr):  # runs through the attributes
-        attributeValues = {}
-        attributeValuesYes = {}
-        attributeValuesNo = {}
-        for j in range(len(listOfInstances)):  # runs through the instances
-            # print "yes or no:" + getYN(listOfInstances)
-            # attributeValues = defaultdict(int)
-            # print(listOfInstances[j][k])
-            # print("This is if the instance is yes or no")
-            # print(listOfInstances[j][numAttr-1])
-            currentValue = listOfInstances[j][k]
-            if "yes" in listOfInstances[j][
-                        numAttr - 1]:  # == "yes\n": #TODO: we can change all of these cases to be "yes" in ________ because then we can be dynamic about what class we are trying to produce
-                # print ("YES CASE")
-                if currentValue in attributeValuesYes:
-                    attributeValuesYes[currentValue] += 1
-                    attributeValues[currentValue] += 1
-                # print(attributeValuesYes[currentValue])
-                elif currentValue not in attributeValues:
-                    attributeValuesYes[currentValue] = 1
-                    attributeValues[currentValue] = 1
-                # print(attributeValuesYes[currentValue])
-                else:
-                    attributeValuesYes[currentValue] = 1
-                    attributeValues[currentValue] += 1
-            elif "no" in listOfInstances[j][numAttr - 1]:  # == "no\n":
-                # print ("NO CASE")
-                if currentValue in attributeValuesNo:
-                    attributeValuesNo[currentValue] += 1
-                    attributeValues[currentValue] += 1
-                elif currentValue not in attributeValues:
-                    attributeValuesNo[currentValue] = 1
-                    attributeValues[currentValue] = 1
-                else:
-                    attributeValuesNo[currentValue] = 1
-                    attributeValues[currentValue] += 1
-        listOfAttributes.append(attributeValues)
-        listOfYes.append(attributeValuesYes)
-        listOfNo.append(attributeValuesNo)
-
-    return listOfYes, listOfNo, listOfAttributes  # added two return values; yesCounter noCounter
 
 
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
@@ -350,21 +285,7 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
 
 
 # Anthony Green's changes
-def avg(attr):
-    summation = 0
-    for vals in attr:
-        summation = vals + summation
-    return summation / len(attr)
 
-
-def sigma(attr, mean):
-    variance = sum([pow(val - mean, 2) for val in attr]) / float(len(attr) - 1)
-    return math.sprt(variance)
-
-
-def pdf(x, mean, stdev):
-    exponent = math.exp(-(math.pow(x - mean, 2) / (2 * math.pow(stdev, 2))))
-    return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
 
 
 def numeric_value(list_of_numerics, input_x):
