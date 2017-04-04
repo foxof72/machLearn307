@@ -299,7 +299,7 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
 		if classifyBy == str(allAttributeList[i]):
 			classNumber = i 
 			break
-			
+
 
 	print("Sweet! Now let's create an instance to classify:")
 	for j in range(len(allAttributeList)):
