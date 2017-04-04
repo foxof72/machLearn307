@@ -29,8 +29,7 @@ def createListOfAttributes(attributes):
             all_attribute_names.append(attribute_name)
 
 
-def sortNominalAndNumeric(attribute_type_list,
-                          listOfInstances):  # the attribute_type_list[[attributename, attribute_type
+def sortNominalAndNumeric(attribute_type_list,listOfInstances):  # the attribute_type_list[[attributename, attribute_type
     # this function takes the sorting above and separates the values into numeric and nominal temp lists before pushing the whole instance into the greater list
     numAttr = len(listOfInstances[1])
     nominalInstanceList = []
@@ -42,8 +41,7 @@ def sortNominalAndNumeric(attribute_type_list,
 
         for j in range(numAttr):  # this is the attributes
             if attribute_type_list[j] == "numeric":  # this is to create the numerical list
-                temp_numeric.append(float(listOfInstances[i][
-                                              j]))  # this is taking the instance value and the attribute and appending it to the temp list
+                temp_numeric.append(float(listOfInstances[i][j]))  # this is taking the instance value and the attribute and appending it to the temp list
             if attribute_type_list[j] == "nominal":  # this is to create the nominal list
                 temp_nominal.append(listOfInstances[i][
                                         j])  # this is taking the instance value and the attribute and appending it to the list
@@ -118,13 +116,11 @@ def findStats(listOfKeys, yesList, noList, yesTotal, numericList, noTotal):
     return yesNormal, noNormal
 
 
-
 # end of John's calculation function
 createListOfAttributes(attributes)
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 # this code is for testing
-numListYes, numListNo, numTotals = classifer(
-    numericInstanceList)  # this is not working currently because yes\n and no\n are not in it
+numListYes, numListNo, numTotals = classifer(numericInstanceList)  # this is not working currently because yes\n and no\n are not in it
 nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
 
 # print list_of_instances
