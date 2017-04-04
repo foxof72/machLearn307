@@ -368,7 +368,6 @@ def pdf(x, mean, stdev):
 
 
 def numeric_value(list_of_numerics, input_x):
-<<<<<<< HEAD
     probs_yes = []
     probs_no = []
     list_yes, list_no, list_tot = classifer(list_of_numerics)
