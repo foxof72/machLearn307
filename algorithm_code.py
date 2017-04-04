@@ -3,76 +3,12 @@ from nominalOps import *
 from numericOps import *
 
 # Assumptions we assume that there will be either a space or at least still a comma division for a missing value
-# we are assuming that the last attribute is a yes no value, and that this is the class that we are classifying for but we can change this 
-
-
-
-print("Welcome to the HAJ NaiveBayes Algorithm")
-print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
-
-file_name = "smallData.arff"
-print ("The File that you requested is " + file_name)
-
-
-def split_instances(data):
-    print("This is you calling split instances")
-
-
-checkexists = os.path.isfile(file_name)
-print("Does the file exist? " + str(checkexists))
-
-while checkexists == False:
-    print (
-        "Sorry, but it seems like your file does not exist in this folder. Please double check your spelling and try again.")
-    print("Hint: Don't foget to put the document type extension.")
-    file_name = input("File Name: ")
-    print ("The File that you requested is " + file_name)
-    checkexists = os.path.isfile(file_name)
-    print("Does the file exits" + str(checkexists))  # can remove this later
-
-list_of_instances = []
-attributes = []  # this will need to be added to their programs
-datavarcheck = "@data"
-datasection = False
-file = open(file_name, "r")
-# attribute_list = []
-# nominalAttributes = []
-# numericAttributes = []
+# we are assuming that the last attribute is a yes no value, and that this is the class that we are classifying for but we can change this
 attribute_type_list = []
 namesOfNominalClasses = []  # I made this a string
-# fullAttributeList = []  # TODO: add this in or no?
 all_attribute_names = []
-
-while True:
-    # print(data)
-    data = file.readline()
-    if not data:
-        break
-    # print ("this is before the if @data statement")
-    if '@data' in data:
-        datasection = True
-        data = file.readline()  # add this to code
-
-    # print("did you get here") #this if statment is not picking it up @data, it think it has something to do with reading lines
-    if data != None and datasection is True:
-        instance = data.split(",")
-
-        list_of_instances.append(instance)
-
-    # this appends to the greater list of instances
-    # print("this is the list of instances")
-    # print(list_of_instances)
-    if datasection is False:
-        attributes.append(data)  # this will need to be added to their programs
-        # print(
-        # "What attribute would you like to classify your instance on?")  # assumption that it must be a yes or no class, but this does not necessarly need to be the case
-        # if we get things working then we can have it create a variable and take the values of that class and we can put that variable in our if statements
-
-
-
-        # ToDo: have the user select what class they want to classify on
-        # ToDo: here is where you should have a question and answer setting for what attributes it wants to classify an instance on
-
+list_of_instances = []
+attributes = []  # this will need to be added to their programs
 
 def createListOfAttributes(attributes):
     for i in range(len(
@@ -118,16 +54,8 @@ def sortNominalAndNumeric(attribute_type_list,
             temp_numeric)  # this is taking the instance value and the attribute and appending it to the list
         nominalInstanceList.append(
             temp_nominal)  # this is taking the instance value and the attribute and appending it to the list
-    # print("this is the numeric instance list")
-
-    # print(numericInstanceList)
-    # print("this is a nominal instance list")
-    # print(nominalInstanceList)
 
     return numericInstanceList, nominalInstanceList
-
-
-# John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
 
 
 def fractionGenerator(attribute, yesList, noList, yesTotal, numericList, noTotal):
@@ -152,8 +80,6 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, numericList, noTotal
         print ("yesFraction: " + str(yesFraction))
         print ("noFraction: " + str(noFraction))
         return (yesFraction, noFraction)
-
-# John wrote this function to find what the odds are of each class.  It should be in a loop.
 
 
 def findStats(listOfKeys, yesList, noList, yesTotal, numericList, noTotal):
@@ -191,33 +117,6 @@ def findStats(listOfKeys, yesList, noList, yesTotal, numericList, noTotal):
     yesNormal = yesChance / (yesChance + noChance) * 100
     noNormal = noChance / (yesChance + noChance) * 100
     return yesNormal, noNormal
-
-
-# end of John's calculation function
-createListOfAttributes(attributes)
-numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
-# this code is for testing
-numListYes, numListNo, numTotals = classifer(
-    numericInstanceList)  # this is not working currently because yes\n and no\n are not in it
-nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
-
-# print list_of_instances
-outYes, outNo = getYN(list_of_instances)
-# print "outYes: " + str(outYes)
-# print "outNo: " + str(outNo)
-# print(list_of_instances)
-listYes, listNo, listTotals = classifer(list_of_instances)
-testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
-yes, no = findStats(testList, listYes, listNo, outYes, outNo)
-print ("\n\n ")
-print ("yes final: " + str(yes) + "%")
-print ("no final: " + str(no) + "%")
-
-
-# print("This is the num list yes")
-# print (numListYes)
-
-
 
 
 # this is where you start editing
@@ -271,7 +170,78 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
         instanceToBeClassified.append(temp_attribute)
 
     return instanceToBeClassified
+print("Welcome to the HAJ NaiveBayes Algorithm")
+print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
+
+file_name = "smallData.arff"
+print ("The File that you requested is " + file_name)
 
 
+def split_instances(data):
+    print("This is you calling split instances")
+
+
+checkexists = os.path.isfile(file_name)
+print("Does the file exist? " + str(checkexists))
+
+while checkexists == False:
+    print (
+        "Sorry, but it seems like your file does not exist in this folder. Please double check your spelling and try again.")
+    print("Hint: Don't foget to put the document type extension.")
+    file_name = input("File Name: ")
+    print ("The File that you requested is " + file_name)
+    checkexists = os.path.isfile(file_name)
+    print("Does the file exits" + str(checkexists))  # can remove this later
+
+datavarcheck = "@data"
+datasection = False
+file = open(file_name, "r")
+
+
+while True:
+    # print(data)
+    data = file.readline()
+    if not data:
+        break
+    # print ("this is before the if @data statement")
+    if '@data' in data:
+        datasection = True
+        data = file.readline()  # add this to code
+
+    # print("did you get here") #this if statment is not picking it up @data, it think it has something to do with reading lines
+    if data != None and datasection is True:
+        instance = data.split(",")
+
+        list_of_instances.append(instance)
+
+    # this appends to the greater list of instances
+    # print("this is the list of instances")
+    # print(list_of_instances)
+    if datasection is False:
+        attributes.append(data)  # this will need to be added to their programs
+        # print(
+        # "What attribute would you like to classify your instance on?")  # assumption that it must be a yes or no class, but this does not necessarly need to be the case
+        # if we get things working then we can have it create a variable and take the values of that class and we can put that variable in our if statements
+
+
+
+        # ToDo: have the user select what class they want to classify on
+        # ToDo: here is where you should have a question and answer setting for what attributes it wants to classify an instance on
+
+
+
+# MAIN
+createListOfAttributes(attributes)
+numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
+numListYes, numListNo, numTotals = classifer(numericInstanceList)
+nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
+listYes, listNo, listTotals = classifer(list_of_instances)
+outYes, outNo = getYN(list_of_instances)
+testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
+yes, no = findStats(testList, listYes, listNo, outYes, outNo)
+print ("\n\n ")
+print ("yes final: " + str(yes) + "%")
+print ("no final: " + str(no) + "%")
 instanceForClassification = userFacing(all_attribute_names, listTotals, namesOfNominalClasses)
 print(instanceForClassification)
+

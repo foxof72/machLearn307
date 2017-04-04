@@ -1,5 +1,6 @@
 import math
-from algorithm_code import classifer
+from nominalOps import classifer
+
 
 def avg(attr):
     summation = 0
@@ -10,12 +11,13 @@ def avg(attr):
 
 def sigma(attr, mean):
     variance = sum([pow(val - mean, 2) for val in attr]) / float(len(attr) - 1)
-    return math.sprt(variance)
+    return math.sqrt(variance)
 
 
 def pdf(x, mean, stdev):
     exponent = math.exp(-(math.pow(x - mean, 2) / (2 * math.pow(stdev, 2))))
     return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
+
 
 def numeric_value(attributeToUse, list_of_numerics, input_x):
     list_yes, list_no, list_tot = classifer(list_of_numerics)
