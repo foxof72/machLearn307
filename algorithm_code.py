@@ -207,11 +207,11 @@ outYes, outNo = getYN(list_of_instances)
 # print "outNo: " + str(outNo)
 # print(list_of_instances)
 listYes, listNo, listTotals = classifer(list_of_instances)
-testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
-yes, no = findStats(testList, listYes, listNo, outYes, outNo)
-print ("\n\n ")
-print ("yes final: " + str(yes) + "%")
-print ("no final: " + str(no) + "%")
+# testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
+# yes, no = findStats(testList, listYes, listNo, outYes, numericInstanceList, outNo)
+#print ("\n\n ")
+#print ("yes final: " + str(yes) + "%")
+#print ("no final: " + str(no) + "%")
 
 
 # print("This is the num list yes")
@@ -251,12 +251,13 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
             if ((i % 2) != 0):
                 choices.append(tempChoices[i])
         # print(tempChoices[i])
-        print("Please select what you would like to classify on for " + allAttributeList[j] + ":")
+        print("Please select what you would like to classify on for " + allAttributeList[j] + ": (or -1 to exit)")
         for i in range(len(choices)):
             print(str(i) + ": " + choices[i])
 
         choice = input()
-
+        if choice == -1:
+            break
         while (int(choice) > len(choices) - 1 or int(choice) < 0):
             choice = input("Sorry, that option is out of range:")
 
@@ -275,3 +276,8 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
 
 instanceForClassification = userFacing(all_attribute_names, listTotals, namesOfNominalClasses)
 print(instanceForClassification)
+yes, no = findStats(instanceForClassification, listYes, listNo, outYes, numericInstanceList, outNo)
+print ("\n\n ")
+print ("yes final: " + str(yes) + "%")
+print ("no final: " + str(no) + "%")
+exit(0)
