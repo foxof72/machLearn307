@@ -130,13 +130,13 @@ def sortNominalAndNumeric(attribute_type_list,
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
 
 
-def fractionGenerator(attribute, randomX, yesList, noList, yesTotal, numericList, noTotal):
+def fractionGenerator(attribute, yesList, noList, yesTotal, numericList, noTotal):
     print ("start generation: ")
     print ("yesTotal: " + str(yesTotal))
     print ("noTotal: " + str(noTotal))
     try:
         float(attribute[1])
-        yesPDF, noPDF = numeric_value(numericList, randomX)
+        yesPDF, noPDF = numeric_value(attribute[0], numericList, attribute[1])
         return yesPDF, noPDF
     except ValueError as e:
         yesDic = yesList[attribute[0]]
