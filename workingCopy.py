@@ -149,6 +149,7 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, numericList, noTotal
         print "try"
         print listOfNumericValuesNo
         print listOfNumericValuesYes
+        #for att in range(len(listOfNumericValuesYes))
         meanNo = statistics.mean(listOfNumericValuesNo[0])
         meanYes = statistics.mean(listOfNumericValuesYes[0])
         print meanNo
@@ -301,7 +302,7 @@ list_of_instances = []
 attributes = []
 
 # testing
-startUp("weather.nominal.arff")
+startUp("weatherTest.nominal.arff")
 createListOfAttributes(attributes)
 numericInstanceList, nominalInstanceList = sortNominalAndNumeric(attribute_type_list, list_of_instances)
 numListYes, numListNo, numTotals = classifer(
