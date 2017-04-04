@@ -85,7 +85,6 @@ def fractionGenerator(attribute, yesList, noList, yesTotal, numericList, noTotal
 def findStats(listOfKeys, yesList, noList, yesTotal, numericList, noTotal):
     noFrac = []  # all the fractions to be multiple together for no
     yesFrac = []  # all the fractions to be multiple for yes
-    randomX = 0
     print ("\n\n")
     print ("find stats yes total: " + str(yesTotal))
     print ("find stats no total: " + str(noTotal))
@@ -97,7 +96,7 @@ def findStats(listOfKeys, yesList, noList, yesTotal, numericList, noTotal):
     print ("total no odds: " + str(no))
     print ("\n\n")
     for i in range(0, len(listOfKeys)):  # this for loop loads the lists with fractions for calculations
-        yesOdd, noOdd = fractionGenerator(listOfKeys[i], randomX, yesList, noList, yesTotal, numericList, noTotal)
+        yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, numericList, noTotal)
         print ("\n\n")
         yesFrac.append(yesOdd)
         noFrac.append(noOdd)
@@ -153,18 +152,11 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
         print("Please select what you would like to classify on for " + allAttributeList[j] + ":")
         for i in range(len(choices)):
             print(str(i) + ": " + choices[i])
-
         choice = input()
-
+        if choice == -1:
+            break
         while (int(choice) > len(choices) - 1 or int(choice) < 0):
             choice = input("Sorry, that option is out of range:")
-
-        # if int(choice) > len(choices) or int(choice) < 0:
-        #	print("We are sorry, but that was out of range.")
-        #	for i in range(len(choices)):
-        #		print(str(i) + ": " + choices[i])
-        #	choice = input()
-        #	while(
         choice = int(choice)
         temp_attribute = [choice, choices[choice]]
         instanceToBeClassified.append(temp_attribute)
@@ -237,8 +229,8 @@ numListYes, numListNo, numTotals = classifer(numericInstanceList)
 nomListYes, nomListNo, nomTotals = classifer(nominalInstanceList)
 listYes, listNo, listTotals = classifer(list_of_instances)
 outYes, outNo = getYN(list_of_instances)
-testList = [[0, 'GP'], [1, 'F'], [19, 'yes']]
-yes, no = findStats(testList, listYes, listNo, outYes, outNo)
+testList = [[0, 'GP'], [1, 'F'], [7, 4]]
+yes, no = findStats(testList, listYes, listNo, outYes, numericInstanceList, outNo)
 print ("\n\n ")
 print ("yes final: " + str(yes) + "%")
 print ("no final: " + str(no) + "%")
