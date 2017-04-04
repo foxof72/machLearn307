@@ -37,7 +37,7 @@ def sortNumeric(attribute_type_list, listOfInstances):  # the attribute_type_lis
 
 
 def classiferNumeric(listOfInstances):
-    print (listOfInstances)
+    # print (listOfInstances)
     listOfAttributes = []
     listOfYes = []
     listOfNo = []
@@ -71,20 +71,15 @@ def classiferNumeric(listOfInstances):
     return listOfYes, listOfNo
 
 
-def forAttributesSelected(listOfKeys):
-    # listOfKeys = [0,0,0,0,0,0,4,5,6,7]
-    length = len(listOfKeys)
-    print(length)
-    print("are we getting into this function")
-    for i in range(length):
-        print("looking at what the attribute list")
-    # print(instancesForClassification[i][0])
+def forAttributesSelected(instancesForClassification):
+    for i in range(len(instancesForClassification)):
+        print(instancesForClassification[i][0])
 
 
 def avg(attr):
     masterList = []
     for vals in range(0, len(attr)):
-        print (attr[vals].keys())
+        # print (attr[vals].keys())
         dictSum = attr[vals].keys()
     for i in range(0, len(dictSum)):
         for j in range(0, len(dictSum[i])):
@@ -100,9 +95,9 @@ def avg2(attr):  # where attribute is passing a list from within a list from the
     total = 0
     for i in range(length):
         total = attr[i] + total
-        print ("Happy")
+        # print ("Happy")
     avg = total / length
-    print(avg)
+    # print(avg)
     return avg
 
 
@@ -122,7 +117,7 @@ def sigma(mean, listYN):
 
 
 def pdf(x, mean, stdev):
-    print ("stdv: " + str(stdev))
+    # print ("stdv: " + str(stdev))
     exponent = math.exp(-(math.pow(x - mean, 2) / (2 * math.pow(stdev, 2))))
     return (1 / (math.sqrt(2 * math.pi) * stdev)) * exponent
 
@@ -133,9 +128,9 @@ def numeric_value(attributeToUse, list_of_numerics, input_x):
     mean_yes = avg(list_yes)
     stdev_yes = sigma(mean_yes, list_yes)
     yesPDF = pdf(input_x, mean_yes, stdev_yes)
-    print ("no start")
-    print ("\n\n")
-    print (len(list_no))
+    # print ("no start")
+    # print ("\n\n")
+    # print (len(list_no))
     attr = list_no[attributeToUse]
     mean_no = avg(list_no)
     stdev_no = sigma(mean_no, list_no)

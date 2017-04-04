@@ -1,4 +1,5 @@
 import os
+
 from nominalOps import *
 from numericOps import *
 
@@ -10,7 +11,7 @@ from numericOps import *
 print("Welcome to the HAJ NaiveBayes Algorithm")
 print("Please enter the name of of an arff file that is present in the folder that you are running this program in:")
 
-file_name = "smallData.arff"
+file_name = "weather.nominal.arff"
 print ("The File that you requested is " + file_name)
 
 
