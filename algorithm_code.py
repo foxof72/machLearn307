@@ -93,15 +93,6 @@ def createListOfAttributes(attributes):
             all_attribute_names.append(attribute_name)
 
 
-# print("this is the list of the types and that attributes")
-# print(attribute_type_list)
-
-# print(list_of_instances)
-
-
-# this function checks to see if you've seen a value before or nah
-
-
 def sortNominalAndNumeric(attribute_type_list,
                           listOfInstances):  # the attribute_type_list[[attributename, attribute_type
     # this function takes the sorting above and separates the values into numeric and nominal temp lists before pushing the whole instance into the greater list
@@ -139,33 +130,36 @@ def sortNominalAndNumeric(attribute_type_list,
 # John wrote this function to generate the fractions used in the final mathematical equation.  It should be in a loop.
 
 
-def fractionGenerator(attribute, yesList, noList, yesTotal, noTotal):
+def fractionGenerator(attribute, randomX, yesList, noList, yesTotal, numericList, noTotal):
     print ("start generation: ")
     print ("yesTotal: " + str(yesTotal))
     print ("noTotal: " + str(noTotal))
-    yesDic = yesList[attribute[0]]
-    noDic = noList[attribute[0]]
-    print (yesDic)
-    print (noDic)
-    numYes = float(yesDic[attribute[1]])
-    print ("numYes: " + str(numYes))
-    numNo = float(noDic[attribute[1]])
-    print ("numNo: " + str(numNo))
-    yesFraction = float(numYes / yesTotal)
-    noFraction = float(numNo / noTotal)
-    print ("yesFraction: " + str(yesFraction))
-    print ("noFraction: " + str(noFraction))
-    return (yesFraction, noFraction)
-
-
-# End of John's new function
+    try:
+        float(attribute[1])
+        yesPDF, noPDF = numeric_value(numericList, randomX)
+        return yesPDF, noPDF
+    except ValueError as e:
+        yesDic = yesList[attribute[0]]
+        noDic = noList[attribute[0]]
+        print (yesDic)
+        print (noDic)
+        numYes = float(yesDic[attribute[1]])
+        print ("numYes: " + str(numYes))
+        numNo = float(noDic[attribute[1]])
+        print ("numNo: " + str(numNo))
+        yesFraction = float(numYes / yesTotal)
+        noFraction = float(numNo / noTotal)
+        print ("yesFraction: " + str(yesFraction))
+        print ("noFraction: " + str(noFraction))
+        return (yesFraction, noFraction)
 
 # John wrote this function to find what the odds are of each class.  It should be in a loop.
 
 
-def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
+def findStats(listOfKeys, yesList, noList, yesTotal, numericList, noTotal):
     noFrac = []  # all the fractions to be multiple together for no
     yesFrac = []  # all the fractions to be multiple for yes
+    randomX = 0
     print ("\n\n")
     print ("find stats yes total: " + str(yesTotal))
     print ("find stats no total: " + str(noTotal))
@@ -177,7 +171,7 @@ def findStats(listOfKeys, yesList, noList, yesTotal, noTotal):
     print ("total no odds: " + str(no))
     print ("\n\n")
     for i in range(0, len(listOfKeys)):  # this for loop loads the lists with fractions for calculations
-        yesOdd, noOdd = fractionGenerator(listOfKeys[i], yesList, noList, yesTotal, noTotal)
+        yesOdd, noOdd = fractionGenerator(listOfKeys[i], randomX, yesList, noList, yesTotal, numericList, noTotal)
         print ("\n\n")
         yesFrac.append(yesOdd)
         noFrac.append(noOdd)
@@ -277,47 +271,6 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
         instanceToBeClassified.append(temp_attribute)
 
     return instanceToBeClassified
-
-
-# print output
-# print output
-# end testing
-
-
-# Anthony Green's changes
-
-
-
-def numeric_value(list_of_numerics, input_x):
-    probs_yes = []
-    probs_no = []
-    list_yes, list_no, list_tot = classifer(list_of_numerics)
-    index = 0
-    for attr in list_yes:
-        print str(attr)
-        probs_yes[index] = 1
-        mean_yes = avg(attr)
-        stdev_yes = sigma(attr, mean_yes)
-        print mean_yes
-        print stdev_yes
-        x = input_x[index]
-        probs_yes[index] = pdf(x, mean_yes, stdev_yes)
-        print probs_yes[index]
-        index += 1
-
-    index = 0
-    for attr in list_no:
-        print str(attr)
-        probs_no[index] = 1
-        mean_no = avg(attr)
-        stdev_no = sigma(attr, mean_no)
-        print mean_no
-        print stdev_no
-        x = input_x[index]
-        probs_no[index] = pdf(x, mean_no, stdev_no)
-        print probs_no[index]
-        index += 1
-    return probs_yes, probs_no
 
 
 instanceForClassification = userFacing(all_attribute_names, listTotals, namesOfNominalClasses)
