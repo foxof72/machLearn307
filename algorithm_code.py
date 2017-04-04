@@ -289,19 +289,35 @@ def userFacing(allAttributeList, AllListTotals, namesOfNominalClasses):
 
 
 def numeric_value(list_of_numerics, input_x):
-    probs = {}
-    for index, attr in list_of_numerics.iteritems():
-        print (str(index))  # test
-        print (str(attr))  # test
-        probs[index] = 1
-        for i in range(len(list_of_numerics)):
-            mean = avg(attr)
-            stdev = sigma(attr, mean)
-            print (mean)  # test
-            print (stdev)  # test
-            x = input_x[i]
-            probs[index] *= pdf(x, mean, stdev)
-    return probs
+    probs_yes = []
+    probs_no = []
+    list_yes, list_no, list_tot = classifer(list_of_numerics)
+    index = 0
+    for attr in list_yes:
+        print str(attr)
+        probs_yes[index] = 1
+        mean_yes = avg(attr)
+        stdev_yes = sigma(attr, mean_yes)
+        print mean_yes
+        print stdev_yes
+        x = input_x[index]
+        probs_yes[index] = pdf(x, mean_yes, stdev_yes)
+        print probs_yes[index]
+        index += 1
+
+    index = 0
+    for attr in list_no:
+        print str(attr)
+        probs_no[index] = 1
+        mean_no = avg(attr)
+        stdev_no = sigma(attr, mean_no)
+        print mean_no
+        print stdev_no
+        x = input_x[index]
+        probs_no[index] = pdf(x, mean_no, stdev_no)
+        print probs_no[index]
+        index += 1
+    return probs_yes, probs_no
 
 
 instanceForClassification = userFacing(all_attribute_names, listTotals, namesOfNominalClasses)
